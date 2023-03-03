@@ -1,0 +1,7 @@
+pandas
+tqdm
+albumentations
+opencv-python-headless
+from-root==1.0.2
+segmentation-models-pytorch
+matplotlib
