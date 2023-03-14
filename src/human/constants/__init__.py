@@ -26,3 +26,15 @@ DATALOADER = 'dataloader'
 TRAIN_DATALOADER = 'train_data_loader.pt'
 VALID_DATALOADER = 'valid_data_loader.pt'
 TRANSFORM_OBJECT_NAME: str = "transform.pkl"
+
+# constants related to model training
+MODEL_TRAINER_ARTIFACTS_DIR : str = 'model_training'
+MODEL_NAME: str = "model.pt"
+TRANSFORM_OBJECT_NAME: str = "transform.pkl"
+BATCH_SIZE: int = 15
+EPOCHS: int = 1
+LEARNING_RATE:float = 0.003
+OPTIMIZER = torch.optim.RMSprop
+ENCODER = 'timm-efficientnet-b0'
+WIEGHTS = 'imagenet'
+BEST_VALID_LOSS = np.Inf

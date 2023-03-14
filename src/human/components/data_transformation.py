@@ -68,5 +68,6 @@ class DataTransformation:
                     )
 
                 logging.info('Data transformation is completed Successfully.')
+                return data_transformation_artifact
             except Exception as e:
                 raise CustomException(e, sys)
