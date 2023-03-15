@@ -7,6 +7,7 @@ from src.human.components.data_ingestion import DataIngestion
 from src.human.components.data_transformation import DataTransformation
 from src.human.components.model_training import ModelTraining
 from src.human.components.model_evaluation import ModelEvaluation
+from src.human.components.model_pusher import ModelPusher
 
 class TrainingPipeline:
     def __init__(self):
@@ -59,6 +60,19 @@ class TrainingPipeline:
         except Exception as e:
             raise CustomException(e, sys)
         
+    def start_model_pusher(self, model_evaluation_artifacts: ModelEvaluationArtifacts,
+                           data_transformation_artifact : DataTransformationArtifacts):
+        logging.info("Starting model pusher in training pipeline")
+        try: 
+            model_pusher = ModelPusher(model_evaluation_artifacts=model_evaluation_artifacts,
+                                       data_transformation_artifact = data_transformation_artifact)
+            logging.info("If model is accepted in model evaluation. Pushing the model into production storage")
+            model_pusher_artifacts = model_pusher.initiate_model_pusher()
+            logging.info("Model pusher step completed successfully in train pipeline")
+            return model_pusher_artifacts
+        except Exception as e:
+            raise CustomException(e, sys)
+        
     def run_pipeline(self) -> None:
         logging.info(">>>> Initializing training pipeline <<<<")
         try:
@@ -66,6 +80,7 @@ class TrainingPipeline:
             data_transformation_artifact = self.start_data_transformation(data_ingestion_artifacts=data_ingestion_artifacts)
             model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
             model_evaluation_artifacts = self.start_model_evaluation(data_transformation_artifact, model_trainer_artifact)
-            
+            model_pusher_artifact = self.start_model_pusher(model_evaluation_artifacts=model_evaluation_artifacts,
+                                                            data_transformation_artifact = data_transformation_artifact)
         except Exception as e:
             raise CustomException(e, sys)

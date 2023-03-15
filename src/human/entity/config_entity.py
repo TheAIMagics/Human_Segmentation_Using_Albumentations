@@ -17,6 +17,8 @@ class DataTransformationConfig:
     train_dataloader_path :str = os.path.join(dataloader_path,TRAIN_DATALOADER)
     valid_dataloader_path :str = os.path.join(dataloader_path,VALID_DATALOADER)
     transformer_object_path: str = os.path.join(dataloader_path, TRANSFORM_OBJECT_NAME)
+    validation_dir : str = os.path.join(data_transformation_artifact_dir,VALID_DIR)
+    validation_csv_path : str = os.path.join(validation_dir, VALIDATION_CSV_FILE)
 
 @dataclass
 class ModelTrainerConfig:

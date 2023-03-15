@@ -47,8 +47,9 @@ class DataTransformation:
                 validset = CustomData(valid_df, self.get_valid_augmentations(),data_ingestion_artifact=self.data_ingestion_artifact)
                 logging.info(f"Size of Trainset : {len(trainset)}")
                 logging.info(f"Size of Validset : {len(validset)}")
-
-                os.makedirs(self.data_transformation_config.dataloader_path,exist_ok=True)
+                os.makedirs(self.data_transformation_config.validation_dir,exist_ok=True)
+                
+                valid_df.to_csv(self.data_transformation_config.validation_csv_path)
 
                 logging.info("Saving transformer oblect for prediction")
                 joblib.dump(self.get_train_augmentations(), self.data_transformation_config.transformer_object_path)
@@ -56,7 +57,7 @@ class DataTransformation:
                 trainloader = DataLoader(trainset, batch_size= BATCH_SIZE, shuffle= True)
                 validloader = DataLoader(validset, batch_size = BATCH_SIZE)
 
-                
+                os.makedirs(self.data_transformation_config.dataloader_path,exist_ok=True)
 
                 torch.save(trainloader, self.data_transformation_config.train_dataloader_path)
                 torch.save(validloader, self.data_transformation_config.valid_dataloader_path)
@@ -64,7 +65,8 @@ class DataTransformation:
                 data_transformation_artifact = DataTransformationArtifacts(
                     trainloader_path=self.data_transformation_config.train_dataloader_path,
                     validloader_path=self.data_transformation_config.valid_dataloader_path,
-                    transformer_object_path= self.data_transformation_config.transformer_object_path
+                    transformer_object_path= self.data_transformation_config.transformer_object_path,
+                    validation_csv_file=self.data_transformation_config.validation_dir
                     )
 
                 logging.info('Data transformation is completed Successfully.')

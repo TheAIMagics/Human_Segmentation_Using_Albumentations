@@ -11,6 +11,7 @@ class DataTransformationArtifacts:
     trainloader_path :str
     validloader_path :str
     transformer_object_path : str
+    validation_csv_file : str
 
 # Model trainer artifacts
 @dataclass
