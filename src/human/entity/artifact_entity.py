@@ -16,3 +16,16 @@ class DataTransformationArtifacts:
 @dataclass
 class ModelTrainerArtifacts:
     model_path: str
+
+# Model Evaluation artifacts
+@dataclass
+class ModelEvaluationArtifacts:
+    s3_model_loss: float
+    is_model_accepted: bool
+    trained_model_path: str
+    s3_model_path: str
+
+# Model Pusher artifacts
+@dataclass
+class ModelPusherArtifacts:
+    response: dict

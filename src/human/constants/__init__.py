@@ -38,3 +38,10 @@ OPTIMIZER = torch.optim.RMSprop
 ENCODER = 'timm-efficientnet-b0'
 WIEGHTS = 'imagenet'
 BEST_VALID_LOSS = np.Inf
+
+# constants realted to model evaluation 
+S3_BUCKET_MODEL_URI: str = "s3://human-segmentation/model/"
+MODEL_EVALUATION_DIR: str = "model_evaluation"
+S3_MODEL_DIR_NAME: str = "s3_model"
+S3_MODEL_NAME: str = "model.pt"
+BASE_LOSS: int = 3
