@@ -1,0 +1,9 @@
+notebooks/
+artifacts/
+logs/
+env/
+demo.py
+template.py
+Human_Segmentation_Classification_With_PyTorch.egg-info
+static/predict
+static/upload

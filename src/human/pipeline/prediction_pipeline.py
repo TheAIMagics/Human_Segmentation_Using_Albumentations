@@ -1,6 +1,4 @@
 import os,sys
-import joblib
-from PIL import Image
 import pandas as pd
 import matplotlib.pyplot as plt
 from src.human.logger import logging
@@ -27,6 +25,7 @@ class SinglePrediction:
         try:
             model_download_dir = self.prediction_config.model_download_path
             os.makedirs(model_download_dir,exist_ok=True)
+            logging.info(f"Model Directory created at {model_download_dir}")
             #Model Directory is empty
             if not any(os.scandir(model_download_dir)):
                 self.s3_sync.sync_folder_from_s3(folder=model_download_dir, aws_bucket_url=S3_BUCKET_MODEL_URI)
@@ -34,6 +33,7 @@ class SinglePrediction:
             validation_dir = self.prediction_config.validation_path
             #Validation Directory is empty
             os.makedirs(validation_dir,exist_ok=True)
+            logging.info(f"Validation Directory created at {validation_dir}")
             if not any(os.scandir(validation_dir)):
                 self.s3_sync.sync_folder_from_s3(folder=validation_dir, aws_bucket_url=S3_BUCKET_VALIDATION_URI)
 
@@ -48,6 +48,10 @@ class SinglePrediction:
     def predict(self, filename):
         try:
             self.get_model_in_production() 
+            model_download_dir = self.prediction_config.model_download_path
+            os.makedirs(model_download_dir,exist_ok=True)
+            validation_dir = self.prediction_config.validation_path
+            os.makedirs(validation_dir,exist_ok=True)
             prediction_model_path = self.prediction_config.model_path
             model = SegmentationModel()
             model = to_device(model, DEVICE)
