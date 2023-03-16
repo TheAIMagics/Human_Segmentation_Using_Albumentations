@@ -49,4 +49,12 @@ S3_MODEL_DIR_NAME: str = "s3_model"
 S3_MODEL_NAME: str = "model.pt"
 BASE_LOSS: int = 3
 
-
+# constants realted to prediction pipeline
+PREDICTION_PIPELINE_DIR_NAME: str = "prediction_artifact"
+IMAGE_NAME : str = 'image.jpg'
+STATIC_DIR ="static"
+MODEL_SUB_DIR = 'model'
+UPLOAD_SUB_DIR = 'upload'
+VALIDATION_SUB_DIR = 'valid'
+PREDICT_SUB_DIR = 'predict'
+PREDICT_IMG_NAME = 'predict.jpg'
